@@ -6,6 +6,9 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <flyway.version>3.1</flyway.version>
 
         <!-- Database connection properties -->
