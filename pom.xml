@@ -1,17 +1,24 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.learning.flyway</groupId>
-  <artifactId>flywayLearning</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.learning.flyway</groupId>
+    <artifactId>flywayLearning</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <flyway.version>3.1</flyway.version>
-        <mysql.driver.version>5.1.33</mysql.driver.version>
-        <database.url>jdbc:mysql://localhost:3306/hb-01-one-to-one-uni?useSSL=false&amp;serverTimezone=UTC</database.url>
-        <database.user>hbstudent</database.user>
-        <databese.password>hbstudent</databese.password>
+
+        <!-- Database connection properties -->
+        <!-- Can be read from a separate configuration file in a real application -->
+        <database.url>jdbc:oracle:thin:@localhost:1521:xe</database.url>
+        <database.user>flyway_demo_user</database.user>
+        <databese.password>welcome1</databese.password>
+
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.flywaydb</groupId>
@@ -19,7 +26,7 @@
             <version>${flyway.version}</version>
         </dependency>
     </dependencies>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -34,13 +41,23 @@
                 </configuration>
                 <dependencies>
                     <dependency>
-    					<groupId>mysql</groupId>
-    					<artifactId>mysql-connector-java</artifactId>
-    					<version>5.1.44</version>
-					</dependency>
+                        <groupId>com.oracle.ojdbc</groupId>
+                        <artifactId>ojdbc8</artifactId>
+                        <version>19.3.0.0</version>
+                    </dependency>
                 </dependencies>
+                <executions>
+                    <execution>
+                        <id>flyway database migration</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>migrate</goal>
+                            <goal>info</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
-  
+
 </project>
